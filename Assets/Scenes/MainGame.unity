@@ -777,6 +777,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &833884380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 833884381}
+  m_Layer: 0
+  m_Name: coins_bank
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &833884381
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 833884380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.48, y: 40.97, z: 78.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1191039536}
+  m_RootOrder: 6
 --- !u!1001 &847122345
 Prefab:
   m_ObjectHideFlags: 0
@@ -1280,9 +1308,15 @@ MonoBehaviour:
   - {fileID: 11406758, guid: f6008b43a343f4dc5ad112f6a8c114f3, type: 2}
   - {fileID: 11496790, guid: ca92bacb1c702437882ed5f192b1d795, type: 2}
   PlayerPrefab: {fileID: 181644, guid: 70d826498ff894a46b1ed419f98ff09e, type: 2}
-  PlayerPositions: []
+  PlayerPositions:
+  - {fileID: 1985055187}
+  - {fileID: 409952472}
+  - {fileID: 1728063409}
+  - {fileID: 571295322}
   QueuePosition: {fileID: 1077546806}
   ShooterPosition: {fileID: 1132837539}
+  PlayerCoin: {fileID: 11418424, guid: 925b4ff868e4e479eada2f99f574abf1, type: 2}
+  CoinsPlace: {fileID: 833884381}
 --- !u!4 &1191039536
 Transform:
   m_ObjectHideFlags: 0
@@ -1300,6 +1334,7 @@ Transform:
   - {fileID: 1077546806}
   - {fileID: 1132837539}
   - {fileID: 571295322}
+  - {fileID: 833884381}
   m_Father: {fileID: 0}
   m_RootOrder: 6
 --- !u!1 &1202172077

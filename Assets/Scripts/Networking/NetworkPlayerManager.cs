@@ -12,6 +12,9 @@ public class NetworkPlayerManager : MonoBehaviour
     [SerializeField] private List<Transform> PlayerPositions;
     [SerializeField] private Transform QueuePosition;
     [SerializeField] private Transform ShooterPosition;
+    [SerializeField] private PlayerCoinController PlayerCoin;
+    [SerializeField] private Transform CoinsPlace;
+//    [SerializeField] private PlayerCoinController PlayerCoin;
 
     private bool[] PositionsBusy;
     private List<int> PlayerQueue = new List<int>();
@@ -87,8 +90,22 @@ public class NetworkPlayerManager : MonoBehaviour
         player.ApplyPosition(PlayerPositions[positionId].localPosition, PlayerPositions[positionId].localRotation);
         player.name = "player_" + positionId;
         player.CharId = Random.Range(0, PlayerCharacterPrefab.Count);
+        player.ShowChipFly += OnShowChipFly;
 
         return true;
+    }
+
+    void OnShowChipFly(NetworkPlayer player, int index)
+    {
+        Debug.Log("Chip fly, player id: " + player.PlayerId);
+        GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
+        coin.transform.SetParent(player.transform);
+        Vector3 coinPosition = player.transform.position;// + new Vector3(0, 50 + index * 2f, 0);
+        coinPosition.y = 48 + index * 2f;
+        coin.transform.position = coinPosition;
+//        coin.GetComponent<PlayerCoinController>().Index = index;
+        coin.GetComponent<PlayerCoinController>().target = CoinsPlace.position;
+        NetworkServer.Spawn(coin);
     }
 
     private void SetPositionState(int index, bool busy)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class NetworkPlayer : NetworkBehaviour
 {
+    public System.Action<NetworkPlayer, int> ShowChipFly;
     public static NetworkPlayer CurrentPlayer;
 
     [System.NonSerialized] public NetworkCharacter Character;
@@ -116,7 +117,14 @@ public class NetworkPlayer : NetworkBehaviour
         Coins -= betValue;
         //Call pay table
 
-        //Spawn chip to fly
+        if (ShowChipFly != null)
+        {
+            ShowChipFly(this, 0);
+            for (int i = 1; i < betValue / 50; i++)
+            {
+                ShowChipFly(this, i);
+            }
+        }
     }
 
 }
