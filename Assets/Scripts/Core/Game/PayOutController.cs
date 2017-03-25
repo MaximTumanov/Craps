@@ -61,6 +61,14 @@ public class PayOutController : MonoBehaviour
 
     public void PayoutPlayer(Player player)
     {
+        for (int i = 0; i < player.Bets.Count; i++)
+        {
+
+        }
+    }
+    
+    public void FindCheckCell()
+    {
 
     }
 }
