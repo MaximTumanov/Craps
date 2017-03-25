@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class BaseCell
 {
     public string Name;
     public int DieValue;
-    public float Coefficient;
+    public float Coefficient = 1;
     public BettingCellState BettingState;
     public PayCellState PayState;
 
@@ -15,6 +16,11 @@ public class BaseCell
         if(DieValue == result.DieOne + result.DieTwo)
             value = CellResult.Won;
         return value;
+    }
+
+    public virtual float Payout (int bet)
+    {
+        return bet * Coefficient;
     }
 }
 
@@ -60,4 +66,10 @@ public class Numbers
 
     public const int Seven = 7;
     public const int Elevent = 11;
+}
+
+public class Phases
+{
+    public const string ComeOut = "ComeOut";
+    public const string Point = "Point";
 }

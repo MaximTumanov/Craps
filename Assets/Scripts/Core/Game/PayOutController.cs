@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PayOutController : MonoBehaviour
+[System.Serializable]
+public class PayOutController
 {
 
     //public int Pass = 20;
@@ -10,18 +11,25 @@ public class PayOutController : MonoBehaviour
     //public int[] PointPromise = new int[6] {4,5,6,8,9,10}; 
     //public int[] Field = new int[5] {3,4,9,10,11};
     //public int[]
-
+    [HideInInspector]
     public PassCell Pass = new PassCell();
+    [HideInInspector]
     public DontPassCell DontPass = new DontPassCell();
+    [HideInInspector]
     public ComeCell Come = new ComeCell();
+    [HideInInspector]
     public DontComeCell DontCome = new DontComeCell();
-    public FieldCell Field = new FieldCell();    
+    [HideInInspector]
+    public FieldCell Field = new FieldCell();
+    [HideInInspector]
     public PointCell[] Point;
-
+    [HideInInspector]
     public SevenHardCell Seven = new SevenHardCell();
+    [HideInInspector]
     public AnyCrapsCell AnyCraps = new AnyCrapsCell();
-
+    [HideInInspector]
     public HardwayCell[] Hardway;
+    [HideInInspector]
     public HardwayExactCell[] HardwayExact;
     
     public List<BaseCell> PayoutCells = new List<BaseCell>();  
@@ -54,21 +62,28 @@ public class PayOutController : MonoBehaviour
         }
     }  
     
-    public void UpdateState()
+    public void UpdateState(Table table)
     {
 
     }
 
-    public void PayoutPlayer(Player player)
+    public void PayoutPlayer(Player player, DiceResult result)
     {
         for (int i = 0; i < player.Bets.Count; i++)
         {
-
+            player.Balance += CheckBetPayout(player, player.Bets[i], result);
         }
     }
     
-    public void FindCheckCell()
+    public int CheckBetPayout(Player player,Bet bet, DiceResult result)
     {
-
+        for (int i = 0; i < PayoutCells.Count; i++)
+        {
+            if(PayoutCells[i].Name == bet.Name)
+            {
+                return (int)PayoutCells[i].Payout(bet.Amount);
+            }
+        }
+        return 0;
     }
 }

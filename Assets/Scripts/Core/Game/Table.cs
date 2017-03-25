@@ -9,14 +9,17 @@ public class Table : MonoBehaviour
     public PayOutController PayoutController;
     public GamePhase CurrentGamePhase;
 
-    public int CurrentPointState = -1; 
+    public int TablePointState = -1; 
 
     public GamePhase ComeOutRollPhase;
-    public GamePhase PointPhase;
+    public GamePhase PointRollPhase;
 
     void Start()
     {
+        PayoutController.Init();
+
         ComeOutRollPhase = new GamePhase();
+        ComeOutRollPhase.Name = Phases.ComeOut;
         ComeOutRollPhase.GameActions = new List<GameAction>()
         {
             {new GameAction(Numbers.Seven,ShooterWin)},
@@ -32,50 +35,62 @@ public class Table : MonoBehaviour
             ComeOutRollPhase.GameActions.Add(new GameAction(number,SetPoint));
         }
 
-        PointPhase = new GamePhase();
-        PointPhase.GameActions = new List<GameAction>()
+        PointRollPhase = new GamePhase();
+        PointRollPhase.Name = Phases.Point;
+        PointRollPhase.GameActions = new List<GameAction>()
         {
             {new GameAction(Numbers.Seven,ShooterLose)}
         };
-        for (int i = 0; i < Numbers.Point.Length; i++)
+        for (int i = 2; i < 13; i++)
         {
-            int number = Numbers.Point[i];
-            ComeOutRollPhase.GameActions.Add(new GameAction(number,SetPoint));
+            if(i == Numbers.Seven || i == Numbers.Elevent)
+                continue;
+            PointRollPhase.GameActions.Add(new GameAction(i,NextStep));
         }
+        CurrentGamePhase = ComeOutRollPhase;
+    }
+
+    [ContextMenu ("DoTestThrow")]
+    public void DoTestThrow()
+    {
+        DiceResult result = new DiceResult(Random.Range(1,7),Random.Range(1,7));
+        ApplyResult(result);
+    }
+
+    public void ApplyResult(DiceResult result)
+    {
+        CurrentGamePhase.DoAction(result.DieOne+result.DieTwo, result);
     }
 
     public void ShooterWin(DiceResult result)
     {
-        CurrentPointState = -1;
+        TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
+        UpdatePayout();
     }
 
     public void ShooterLose(DiceResult result)
     {
-        CurrentPointState = -1;
+        TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
+        UpdatePayout();
+
     }
 
     public void SetPoint(DiceResult result)
     {
-        CurrentPointState = result.DieOne + result.DieTwo;
-        CurrentGamePhase = PointPhase;
+        TablePointState = result.DieOne + result.DieTwo;
+        CurrentGamePhase = PointRollPhase;
+        UpdatePayout();
     }
 
     public void NextStep(DiceResult result)
     {
-
+        UpdatePayout();
     }
 
-    public void CulculatePayOut(DiceResult result)
+    public void UpdatePayout()
     {
-
+        PayoutController.UpdateState(this);
     }
-
-    public void CheckPoint(DiceResult result)
-    {
-
-    }
-
-
 }

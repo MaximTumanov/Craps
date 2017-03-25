@@ -5,12 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class Bet
 {
-    public int Id;
+    public string Name;
     public int Amount;
 
-    public Bet(int id, int amount)
+    public Bet(string name, int amount)
     {
-        Id = id;
+        Name = name;
         Amount = amount;
     }
 }

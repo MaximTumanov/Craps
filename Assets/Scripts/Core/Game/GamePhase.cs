@@ -6,6 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class GamePhase
 {
+   
+    public string Name = "";
+
     public List<GameAction> GameActions;
     
     public void DoAction(int actionId, DiceResult parametrs)
@@ -19,5 +22,5 @@ public class GamePhase
             }
         }
     }
-
 }
+
