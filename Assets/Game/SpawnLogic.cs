@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using VRStandardAssets.Utils;
+using UnityEngine.UI;
 
 public class SpawnLogic : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class SpawnLogic : MonoBehaviour {
 
     [SerializeField]
     private VRInput VRi;
+
+    [SerializeField]
+    Text Text;
 
     ThrowLogic tr;
 
@@ -20,7 +24,10 @@ public class SpawnLogic : MonoBehaviour {
 
         VRi.OnDown += VRi_OnDown;
         VRi.OnUp += VRi_OnUp;
+
     }
+
+
  
 
     private void VRi_OnUp()
@@ -41,6 +48,11 @@ public class SpawnLogic : MonoBehaviour {
 
             t = Time.time;
         }
+    }
+
+    void Update()
+    {
+        Text.text = Mathf.Abs(Input.GetAxis("Horizontal")).ToString() + " ,  " + Mathf.Abs(Input.GetAxis("Vertical")).ToString();
     }
 
 
