@@ -81,7 +81,7 @@ public class PayOutController
         {
             if(PayoutCells[i].Name == bet.Name)
             {
-                return (int)PayoutCells[i].Payout(bet.Amount);
+				return (int)PayoutCells[i].Payout(bet.Amount,result);
             }
         }
         return 0;

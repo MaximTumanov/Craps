@@ -18,7 +18,7 @@ public class BaseCell
         return value;
     }
 
-    public virtual float Payout (int bet)
+	public virtual float Payout (int bet, DiceResult result)
     {
         return bet * Coefficient;
     }
@@ -47,6 +47,9 @@ public class Numbers
 {
     public static int[] Point = new int[6] {4,5,6,8,9,10};
     public static int[] Craps = new int[3] {2,3,12};
+	public static int[] FieldsX1 =  new int[] {3,4,9,10,11};
+		public static int[] FieldsSellMult_2 = new int[] { 2,12};
+
 
     public static DiceResult[] Hardway = 
     {
