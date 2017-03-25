@@ -55,12 +55,16 @@ public class SpawnLogic : MonoBehaviour {
 
     void Update()
     {
-        
-         if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
-        {  
-            Text.text = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
-                 OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
-                  OVRInput.GetLocalControllerAngularAcceleration(OVRInput.Controller.RTrackedRemote).ToString();
+   
+
+
+         if (OVRInput.IsControllerConnected(OVRInput.Controller.RTouch))
+        {
+            Text.text = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTouch).ToString() + ", " +
+                 OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch).ToString() + ", " +
+                  OVRInput.GetLocalControllerAngularAcceleration(OVRInput.Controller.RTouch).ToString() + ", " +
+                   OVRInput.GetActiveController().ToString();
+
 
         }
 
