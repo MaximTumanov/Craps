@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 using VRStandardAssets.Utils;
 using UnityEngine.UI;
 
-public class SpawnLogic : MonoBehaviour {
+public class SpawnLogic : MonoBehaviour
+{
+    [SerializeField] private GameObject prefab;
 
-    [SerializeField]
-    private GameObject prefab;
+    [SerializeField] private VRInput VRi;
+    [SerializeField] UnityEvent OnThrowDice;
 
-    [SerializeField]
-    private VRInput VRi;
-
-    
-
-    [SerializeField]
-    Text Text;
+    [SerializeField] Text Text;
 
     ThrowLogic tr;
 
@@ -23,27 +20,22 @@ public class SpawnLogic : MonoBehaviour {
 
     void Start()
     {
-
         VRi.OnDown += VRi_OnDown;
-        VRi.OnUp += VRi_OnUp;   
-        
-
+        VRi.OnUp += VRi_OnUp;
     }
 
 
- 
-
     private void VRi_OnUp()
     {
-
         tr.Disepower = Mathf.Clamp((Time.time - t) * 3f, 0.1f, 1f) * tr.Disepower;
 
         obj.SetActive(true);
+        OnThrowDice.Invoke();
     }
 
     private void VRi_OnDown()
     {
-      //  if (Input.GetMouseButtonDown(0))
+        //  if (Input.GetMouseButtonDown(0))
         {
             obj = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
 
@@ -55,18 +47,11 @@ public class SpawnLogic : MonoBehaviour {
 
     void Update()
     {
-        
-         if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
-        {  
+        if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
+        {
             Text.text = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
-                 OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
-                  OVRInput.GetLocalControllerAngularAcceleration(OVRInput.Controller.RTrackedRemote).ToString();
-
+                        OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
+                        OVRInput.GetLocalControllerAngularAcceleration(OVRInput.Controller.RTrackedRemote).ToString();
         }
-
-         
-
     }
-
-
 }
