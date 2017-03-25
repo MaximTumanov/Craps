@@ -26,7 +26,7 @@ public class SpawnLogic : MonoBehaviour {
     private void VRi_OnUp()
     {
 
-        tr.Disepower = Mathf.Clamp(((Time.time - t) * 1000f), 400f, 1200f);
+        tr.Disepower = Mathf.Clamp((Time.time - t) * 3f, 0.1f, 1f) * tr.Disepower;
 
         obj.SetActive(true);
     }
