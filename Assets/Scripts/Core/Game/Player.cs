@@ -18,6 +18,11 @@ public class Player
         Bets.Add(new Bet(name,CurrentBet));
     }
 
+    public void Remove(Bet bet)
+    {
+        Bets.Remove(bet);
+    }
+
     public void KillBets()
     {
         Bets.Clear();

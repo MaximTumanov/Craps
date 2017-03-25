@@ -8,4 +8,21 @@ public class ComeCell:BaseCell
     {
         Name = Cell.Come;
     }
+
+    public override CellResult Check(DiceResult result)
+    {
+        int number = result.DieOne + result.DieTwo;
+        if(number == Numbers.Elevent || number == Numbers.Seven)
+        {
+            return CellResult.Won;
+        }
+        for (int i = 0; i < Numbers.Craps.Length; i++)
+        {
+            if(number == Numbers.Craps[i])
+            {
+                return CellResult.Lost;
+            }
+        }
+        return CellResult.Next;
+    }
 }
