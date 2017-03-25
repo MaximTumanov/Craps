@@ -105,7 +105,7 @@ public class NetworkPlayerManager : MonoBehaviour
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer);
     }
 
-    private void Destroy()
+    private void OnDestroy()
     {
         EventManager<NetworkingEvents> eventManager = NetworkingMainSingletone.Instance.NetworkEventManager;
         if (eventManager.HasListener<short, NetworkConnection>(NetworkingEvents.ServerClientConnected, CreatePlayer))

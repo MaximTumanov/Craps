@@ -8,7 +8,7 @@ public class NetworkReturnToLobby : MonoBehaviour
 	public void ReturnToLobby()
 	{
 		NetworkingMainSingletone.Instance.NetworkService.Disconnect ();
-		SceneManager.LoadScene (SceneNames.ServerConnect);
+//		SceneManager.LoadScene (SceneNames.ServerConnect);
 	}
 
 	/*private void Awake()
