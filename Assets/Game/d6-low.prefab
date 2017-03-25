@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dise: {fileID: 5436046}
-  Disepower: 12000
+  Disepower: 24000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

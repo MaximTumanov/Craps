@@ -122,7 +122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 468158, guid: 5e9f9ea613fa6bc4ca53b42490afdd35, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 468158, guid: 5e9f9ea613fa6bc4ca53b42490afdd35, type: 2}
       propertyPath: m_LocalScale.x
@@ -464,7 +464,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 432438, guid: 09879b84d36a5b74f8993f55a368a97b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 75
+      value: 65.9
       objectReference: {fileID: 0}
     - target: {fileID: 432438, guid: 09879b84d36a5b74f8993f55a368a97b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -489,10 +489,6 @@ Prefab:
     - target: {fileID: 432438, guid: 09879b84d36a5b74f8993f55a368a97b, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11438044, guid: 09879b84d36a5b74f8993f55a368a97b, type: 2}
-      propertyPath: m_MenuSceneName
-      value: Info
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09879b84d36a5b74f8993f55a368a97b, type: 2}
@@ -791,7 +787,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 442548, guid: 637a782dfa4996046b6778a8da4591a9, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 187862, guid: 637a782dfa4996046b6778a8da4591a9, type: 2}
       propertyPath: m_IsActive
