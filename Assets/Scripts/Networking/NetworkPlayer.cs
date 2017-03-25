@@ -5,41 +5,84 @@ using System.Collections.Generic;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    private string CurrentBetText = "100";
+    public static NetworkPlayer CurrentPlayer;
 
-    [System.NonSerialized] public int PositionInRoom = -1;
+    [System.NonSerialized] public NetworkCharacter Character;
+
+    [System.NonSerialized] public int PlayerId = 0;
+    [SyncVar (hook="PositionChanged")] public int PositionInRoom = -1;
     [System.NonSerialized] public bool IsShooter = false;
 
-    [SyncVar]
-    public long Coins = 1000;
-    private int PlayerId;
+    [SyncVar (hook="OnCharId")] public int CharId = -1;
+    [SyncVar] public long Coins = 1000;
 
-    public override void OnNetworkDestroy()
+    public override void OnStartLocalPlayer()
     {
-        base.OnNetworkDestroy();
-        if (isLocalPlayer)
+        Debug.Log("OnStartLocalPlayer ");
+        CurrentPlayer = this;
+        PositionChanged(PositionInRoom);
+        base.OnStartLocalPlayer();
+        if (Character != null)
         {
-            //            NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast(NetworkingEvents.
+            Character.gameObject.SetActive(false);
+            Character.ApplyPositionToCamera();
+        }
+        else
+        {
+            Camera.main.transform.position = transform.position;
+            Camera.main.transform.rotation = transform.rotation;
         }
     }
 
-    private void OnGUI()
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        Debug.Log("OnStartClient CharId " + CharId);
+        if (CharId != -1)
+            OnCharId(CharId);
+    }
+
+    public void ApplyPosition(Vector3 localPosition, Quaternion localRotation)
+    {
+        transform.localPosition = localPosition;
+        transform.localRotation = localRotation;
+    }
+
+    public void PutBet(int betId, int betValue)
+    {
+        if (betValue > Coins)
+            return;
+
+        CmdPutBet(betId, betValue);
+    }
+
+    private void PositionChanged(int positionId)
     {
         if (!isLocalPlayer || IsShooter)
             return;
 
-        float scale = Screen.width / 1000f;
-
-        CurrentBetText = GUI.TextField(new Rect(10f * scale, 10f * scale, 100f * scale, 30f * scale), CurrentBetText);
-        for (int i = 0; i < 5; i++)
-        {
-            if (GUI.Button(new Rect(10f * scale, (50f + i * 50f) * scale, 100f * scale, 50f * scale), "Bet " + i))
-            {
-                CmdPutBet(i, System.Convert.ToInt32(CurrentBetText));
-            }
-        }
-
+        if (PositionInRoom != -1)
+            NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast(NetworkingEvents.PlacedToTable);
     }
+
+    private void OnCharId(int charId)
+    {
+        if (Character != null)
+            return;
+        
+        Debug.Log("OnCharId " + charId); 
+        NetworkPlayerManager playerManager = FindObjectOfType<NetworkPlayerManager>();
+        GameObject charObject = Instantiate<GameObject>(playerManager.PlayerCharacterPrefab[charId].gameObject);
+        charObject.transform.SetParent(transform, false);
+        Character = charObject.GetComponent<NetworkCharacter>();
+        if (isLocalPlayer)
+        {
+            Debug.Log("OnStartLocalPlayer - OnCharId");
+            Character.gameObject.SetActive(false);
+            Character.ApplyPositionToCamera();
+        }
+    }
+
 
     [ClientRpc]
     private void RpcPayout(int coins)
@@ -54,6 +97,8 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (!isLocalPlayer || IsShooter)
             return;
+
+        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<List<int>>(NetworkingEvents.ClientControlsEnabled, betsId);
     }
 
     [ClientRpc]
@@ -61,12 +106,17 @@ public class NetworkPlayer : NetworkBehaviour
     {
         if (!isLocalPlayer || IsShooter)
             return;
+
+        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<List<int>>(NetworkingEvents.ClientControlsEnabled, new List<int>());
     }
 
     [Command]
     private void CmdPutBet(int betId, int betValue)
     {
+        Coins -= betValue;
         //Call pay table
+
+        //Spawn chip to fly
     }
 
 }

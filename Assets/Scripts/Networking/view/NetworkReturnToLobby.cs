@@ -4,11 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class NetworkReturnToLobby : MonoBehaviour
 {
+    private void Awake()
+    {
+        if (NetworkingMainSingletone.Instance == null)
+            SceneManager.LoadScene (SceneNames.ServerConnect);
+    }
 	
 	public void ReturnToLobby()
 	{
 		NetworkingMainSingletone.Instance.NetworkService.Disconnect ();
-//		SceneManager.LoadScene (SceneNames.ServerConnect);
 	}
 
 	/*private void Awake()

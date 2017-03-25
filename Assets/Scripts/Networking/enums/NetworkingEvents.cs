@@ -5,6 +5,8 @@ public enum NetworkingEvents
 	ConnectedAsClient,
 	Disconnected,
     ServerClientConnected,
-    ServerClientDisconnectd
+    ServerClientDisconnectd,
+    ClientControlsEnabled,
+    PlacedToTable
 }
 

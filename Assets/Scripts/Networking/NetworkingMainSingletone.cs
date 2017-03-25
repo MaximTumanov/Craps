@@ -12,6 +12,9 @@ public class NetworkingMainSingletone
             {
 //                GameObject mainObject = new GameObject("NetworkingMainSingletone");
 //                _instance = mainObject.AddComponent<NetworkingMainSingletone>();
+                if (NetworkService.singleton == null)
+                    return null;
+                
                 _instance = new NetworkingMainSingletone();
             }
 			

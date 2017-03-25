@@ -26,12 +26,7 @@ public class NetworkService : NetworkManager
 
 	public override void OnServerAddPlayer (NetworkConnection conn, short playerControllerId)
 	{
-        Log("OnServerAddPlayer: " + conn.hostId);
-//        if (conn.hostId == -1) //NetworkingMainSingletone.Instance.HostMode)
-//        {
-            //create host prefab
-//            return;
-//        }
+        Log("OnServerAddPlayer: " + conn.connectionId);
 //		base.OnServerAddPlayer (conn, playerControllerId);
         NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<short, NetworkConnection> (NetworkingEvents.ServerClientConnected, playerControllerId, conn);
 	}
@@ -63,7 +58,7 @@ public class NetworkService : NetworkManager
     {
         Log ("OnServerDisconnect");
         base.OnServerDisconnect(conn);
-        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, conn.hostId, conn);
+        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, conn.connectionId, conn);
     }
 
     private void Log(string message)
