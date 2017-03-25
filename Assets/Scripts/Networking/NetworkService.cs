@@ -26,24 +26,20 @@ public class NetworkService : NetworkManager
 
 	public override void OnServerAddPlayer (NetworkConnection conn, short playerControllerId)
 	{
-        if (NetworkingMainSingletone.Instance.HostMode)
-        {
+        Log("OnServerAddPlayer: " + conn.hostId);
+//        if (conn.hostId == -1) //NetworkingMainSingletone.Instance.HostMode)
+//        {
             //create host prefab
-            return;
-        }
+//            return;
+//        }
 //		base.OnServerAddPlayer (conn, playerControllerId);
         NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<short, NetworkConnection> (NetworkingEvents.ServerClientConnected, playerControllerId, conn);
 	}
-
-    public override void OnServerRemovePlayer(NetworkConnection conn, PlayerController player)
-    {
-        base.OnServerRemovePlayer(conn, player);
-        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<short, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, player.playerControllerId, conn);
-    }
-
+        
 	public override void OnClientConnect (NetworkConnection conn)
 	{
-//		base.OnClientConnect (conn);
+        Log("OnClientConnect");
+		base.OnClientConnect (conn);
 		if (NetworkingMainSingletone.Instance.HostMode)
 			return; //you are not real client
 
@@ -52,9 +48,26 @@ public class NetworkService : NetworkManager
 
 	public override void OnClientDisconnect (NetworkConnection conn)
 	{
-		Debug.LogError ("NetworkService: OnClientDisconnect");
+        Log ("OnClientDisconnect");
 		base.OnClientDisconnect (conn);
 		NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast (NetworkingEvents.Disconnected);
 	}
 
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        Log ("OnServerConnect");
+        base.OnServerConnect(conn);
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        Log ("OnServerDisconnect");
+        base.OnServerDisconnect(conn);
+        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, conn.hostId, conn);
+    }
+
+    private void Log(string message)
+    {
+        Debug.Log("NetworkService: " + message);
+    }
 }

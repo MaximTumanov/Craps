@@ -32,7 +32,7 @@ public class NetworkConnectScreen : MonoBehaviour
 
 	private void Start()
 	{
-//        IpField.text = NetworkingMainSingletone.Instance.NetworkService.networkAddress;
+        IpField.text = NetworkingMainSingletone.Instance.NetworkService.networkAddress;
 		ShowConnectMenu ();
 		NetworkingMainSingletone.Instance.NetworkEventManager.AddListener (NetworkingEvents.Disconnected, ShowConnectMenu);
 	}
@@ -49,7 +49,7 @@ public class NetworkConnectScreen : MonoBehaviour
 		{
             if (NetworkingMainSingletone.Instance.NetworkService.IsConnected())
             {
-                SceneManager.LoadScene (SceneNames.Game);
+//                SceneManager.LoadScene (SceneNames.Game);
                 yield break;
             }
             yield return new WaitForSeconds(0.2f);

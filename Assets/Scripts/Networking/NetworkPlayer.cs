@@ -7,15 +7,25 @@ public class NetworkPlayer : NetworkBehaviour
 {
     private string CurrentBetText = "100";
 
-    public int PositionInRoom = -1;
+    [System.NonSerialized] public int PositionInRoom = -1;
+    [System.NonSerialized] public bool IsShooter = false;
 
     [SyncVar]
     public long Coins = 1000;
     private int PlayerId;
 
-    void OnGUI()
+    public override void OnNetworkDestroy()
     {
-        if (!isLocalPlayer)
+        base.OnNetworkDestroy();
+        if (isLocalPlayer)
+        {
+            //            NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast(NetworkingEvents.
+        }
+    }
+
+    private void OnGUI()
+    {
+        if (!isLocalPlayer || IsShooter)
             return;
 
         float scale = Screen.width / 1000f;
@@ -34,7 +44,7 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc]
     private void RpcPayout(int coins)
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || IsShooter)
             return;
         Coins += coins;
     }
@@ -42,14 +52,14 @@ public class NetworkPlayer : NetworkBehaviour
     [ClientRpc]
     private void RpcBetsAvailable(List<int> betsId)
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || IsShooter)
             return;
     }
 
     [ClientRpc]
     private void RpcNotAvailable()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || IsShooter)
             return;
     }
 

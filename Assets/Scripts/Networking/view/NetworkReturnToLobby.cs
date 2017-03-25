@@ -11,7 +11,7 @@ public class NetworkReturnToLobby : MonoBehaviour
 		SceneManager.LoadScene (SceneNames.ServerConnect);
 	}
 
-	private void Awake()
+	/*private void Awake()
 	{
 		NetworkingMainSingletone.Instance.NetworkEventManager.AddListener (NetworkingEvents.Disconnected, OnDisconnected);
 	}
@@ -24,7 +24,7 @@ public class NetworkReturnToLobby : MonoBehaviour
 
 	private void OnDisconnected()
 	{
-		SceneManager.LoadScene (SceneNames.ServerConnect);
-	}
+//		SceneManager.LoadScene (SceneNames.ServerConnect);
+	}*/
 }
 

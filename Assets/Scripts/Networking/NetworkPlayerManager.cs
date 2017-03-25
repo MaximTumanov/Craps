@@ -5,62 +5,80 @@ using UnityEngine.Networking;
 
 public class NetworkPlayerManager : MonoBehaviour
 {
+    public Dictionary<int, NetworkPlayer> Players = new Dictionary<int, NetworkPlayer>();
+
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private List<Vector3> PlayerPositions;
-    [SerializeField] private List<NetworkPlayerQueueItem> PlayerQueue;
     [SerializeField] private Vector3 QueuePosition;
-    private bool[] PositionsBusy;
+    [SerializeField] private Vector3 ShooterPosition;
 
-    public Dictionary<short, NetworkPlayer> Players = new Dictionary<short, NetworkPlayer>();
+    private bool[] PositionsBusy;
+    private List<int> PlayerQueue;
+
+    private void CreateShooter(short playerControllerId, NetworkConnection conn)
+    {
+        GameObject playerController = (GameObject)GameObject.Instantiate(PlayerPrefab);
+        playerController.transform.parent = transform;
+        NetworkPlayer player = playerController.GetComponent<NetworkPlayer>();
+        player.transform.localPosition = ShooterPosition;
+        player.IsShooter = true;
+        player.name = "player_shooter";
+        Players.Add(conn.hostId, player);
+        NetworkServer.AddPlayerForConnection(conn, playerController, playerControllerId);
+    }
 
     private void CreatePlayer(short playerControllerId, NetworkConnection conn)
     {
-        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<short> (NetworkingEvents.ServerClientConnected, playerControllerId);
-
-        // Create the player "controller" object which has the client authority
-        GameObject playerController = (GameObject)GameObject.Instantiate(PlayerPrefab);
-        int positionId = GetFreePosition();
-        if (positionId != -1)
+        if (conn.hostId == -1)
         {
-            SetPositionState(positionId, true);
-            playerController.transform.localPosition = PlayerPositions[positionId];
+            CreateShooter(playerControllerId, conn);
+            return;
         }
-        else
+        GameObject playerController = (GameObject)GameObject.Instantiate(PlayerPrefab);
+        playerController.transform.parent = transform;
+        NetworkPlayer player = playerController.GetComponent<NetworkPlayer>();
+        if (!PlacePlayer(player))
         {
             playerController.transform.localPosition = QueuePosition;
-            PlayerQueue.Add(new NetworkPlayerQueueItem(playerControllerId, conn));
+            PlayerQueue.Add(conn.hostId); //new NetworkPlayerQueueItem(playerControllerId, conn));
         }
 
+        Players.Add(conn.hostId, player);
         NetworkServer.AddPlayerForConnection(conn, playerController, playerControllerId);
-
-//        GameObject playerCharacter = (GameObject)GameObject.Instantiate(characterPrefab);
-//        NetworkServer.Spawn(playerCharacter);
     }
 
-    private void DeletePlayer(short playerControllerId, NetworkConnection conn)
+    private void DeletePlayer(int hostId, NetworkConnection conn)
     {
-        if (!Players.ContainsKey(playerControllerId))
+        if (!Players.ContainsKey(hostId))
         {
-            Debug.LogError("User " + playerControllerId + " not in room");
+            Debug.LogError("User " + hostId + " not in room");
             return;
         }
 
-        NetworkPlayer player = Players[playerControllerId];
+        NetworkPlayer player = Players[hostId];
         if (player.PositionInRoom != -1)
             SetPositionState(player.PositionInRoom, false);
         
         
-        Players.Remove(playerControllerId);
+        Players.Remove(hostId);
 
-        if (PlayerQueue.Count > 0)
+        if (PlayerQueue.Count > 0 && player.PositionInRoom != -1)
         {
-            int positionId = GetFreePosition();
-            if (positionId == -1)
-                return;
-
-            SetPositionState(positionId, true);
-            player.transform.localPosition = PlayerPositions[positionId];
+            PlacePlayer(Players[PlayerQueue[0]]);
+            PlayerQueue.RemoveAt(0);
         }
+    }
+
+    private bool PlacePlayer(NetworkPlayer player)
+    {
+        int positionId = GetFreePosition();
+        if (positionId == -1)
+            return false;
+        
+        SetPositionState(positionId, true);
+        player.transform.localPosition = PlayerPositions[positionId];
+        player.name = "player_" + positionId;
+        return true;
     }
 
     private void SetPositionState(int index, bool busy)
@@ -84,7 +102,7 @@ public class NetworkPlayerManager : MonoBehaviour
     {
         PositionsBusy = new bool[PlayerPositions.Count];
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<short, NetworkConnection> (NetworkingEvents.ServerClientConnected, CreatePlayer);
-        NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<short, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer);
+        NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer);
     }
 
     private void Destroy()
@@ -93,11 +111,11 @@ public class NetworkPlayerManager : MonoBehaviour
         if (eventManager.HasListener<short, NetworkConnection>(NetworkingEvents.ServerClientConnected, CreatePlayer))
             eventManager.RemoveListener<short, NetworkConnection>(NetworkingEvents.ServerClientConnected, CreatePlayer);
 
-        if (eventManager.HasListener<short, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, CreatePlayer))
-            eventManager.RemoveListener<short, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, CreatePlayer);
+        if (eventManager.HasListener<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer))
+            eventManager.RemoveListener<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer);
     }
 
-    private class NetworkPlayerQueueItem
+    /*private class NetworkPlayerQueueItem
     {
         public short PlayerControllerId { get; private set; }
         public NetworkConnection Connection { get; private set; }
@@ -107,6 +125,6 @@ public class NetworkPlayerManager : MonoBehaviour
             Connection = conn;
             PlayerControllerId = playerControllerId;
         }
-    }
+    }*/
 }
 
