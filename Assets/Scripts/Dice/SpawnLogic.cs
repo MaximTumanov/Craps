@@ -11,6 +11,8 @@ public class SpawnLogic : MonoBehaviour {
     [SerializeField]
     private VRInput VRi;
 
+    
+
     [SerializeField]
     Text Text;
 
@@ -23,7 +25,8 @@ public class SpawnLogic : MonoBehaviour {
     {
 
         VRi.OnDown += VRi_OnDown;
-        VRi.OnUp += VRi_OnUp;
+        VRi.OnUp += VRi_OnUp;   
+        
 
     }
 
@@ -52,7 +55,17 @@ public class SpawnLogic : MonoBehaviour {
 
     void Update()
     {
-        Text.text = Mathf.Abs(Input.GetAxis("Horizontal")).ToString() + " ,  " + Mathf.Abs(Input.GetAxis("Vertical")).ToString();
+        
+         if (OVRInput.IsControllerConnected(OVRInput.Controller.RTrackedRemote))
+        {  
+            Text.text = OVRInput.GetLocalControllerAcceleration(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
+                 OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTrackedRemote).ToString() + ", " +
+                  OVRInput.GetLocalControllerAngularAcceleration(OVRInput.Controller.RTrackedRemote).ToString();
+
+        }
+
+         
+
     }
 
 
