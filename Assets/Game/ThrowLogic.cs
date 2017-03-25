@@ -14,11 +14,26 @@ public class ThrowLogic : MonoBehaviour {
 
     private void Throw(float powerOfThrow)
     {
-      
-            Dise.useGravity = true;
-        
-            Dise.AddForce(Vector3.forward * powerOfThrow);
-        
+
+        Dise.useGravity = true;
+
+        Dise.AddForce(Vector3.forward * powerOfThrow);
+        Dise.angularVelocity = new Vector3(Random.Range(0, 100f), Random.Range(0, 100f), Random.Range(0, 100f));
+        StartCoroutine(DestroythisObje());
+
+    }
+
+    IEnumerator DestroythisObje()
+    {
+        while(true)
+        {
+            if(Dise.IsSleeping())
+            {
+                Destroy(gameObject, .3f);
+                break;
+            }
+            yield return null;
+        }
     }
 
    

@@ -120,11 +120,7 @@ public class Dice : MonoBehaviour {
 	
 	/// <summary>
 	/// Log a text to the console
-	/// </summary>
-	public static void debug(string txt)
-	{
-		Debug.Log(txt);
-	}		
+	
 	
 	/// <summary>
 	/// Roll one or more dice with a specific material from a spawnPoint and give it a specific force.

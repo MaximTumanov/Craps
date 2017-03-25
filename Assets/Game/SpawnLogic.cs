@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using VRStandardAssets.Utils;
+
 public class SpawnLogic : MonoBehaviour {
 
     [SerializeField]
@@ -16,14 +17,16 @@ public class SpawnLogic : MonoBehaviour {
 
     void Start()
     {
+
         VRi.OnDown += VRi_OnDown;
         VRi.OnUp += VRi_OnUp;
     }
+ 
 
     private void VRi_OnUp()
     {
-        
-        tr.Disepower = ((Time.time - t) * 1000f) % 1200f;
+
+        tr.Disepower = Mathf.Clamp(((Time.time - t) * 1000f), 400f, 1200f);
 
         obj.SetActive(true);
     }
