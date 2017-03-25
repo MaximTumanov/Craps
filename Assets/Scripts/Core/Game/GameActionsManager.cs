@@ -7,9 +7,9 @@ using UnityEngine;
 public class GameAction
 {
     public int Id;
-    public Action<object> Action;
+    public Action<DiceResult> Action;
 
-    public GameAction(int id, Action<object> action)
+    public GameAction(int id, Action<DiceResult> action)
     {
         Id = id;
         Action = action;

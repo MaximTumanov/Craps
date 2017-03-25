@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePhase : MonoBehaviour
+[System.Serializable]
+public class GamePhase
 {
     public List<GameAction> GameActions;
-
-    public void DoAction(int actionId, object parametrs)
+    
+    public void DoAction(int actionId, DiceResult parametrs)
     {
         for (int i = 0; i < GameActions.Count; i++)
         {
