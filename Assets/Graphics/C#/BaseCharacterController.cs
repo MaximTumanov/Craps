@@ -20,7 +20,7 @@ public class BaseCharacterController : MonoBehaviour
 
 	[ContextMenu ("WinEmotion")]
 	public void WinEmotion () 
-	{
+	{		
 		WinEmotion (WinTrigger);
 	}
 
