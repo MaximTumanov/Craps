@@ -30,7 +30,7 @@ public class ThrowLogic : MonoBehaviour {
             if(Dise.IsSleeping())
             {
                 Destroy(gameObject, .3f);
-                Debug.Log(transform.eulerAngles);
+                Debug.Log(transform.eulerAngles.normalized);
                 break;
             }
             yield return null;
