@@ -60,34 +60,47 @@ public class Table : MonoBehaviour
 
     public void ApplyResult(DiceResult result)
     {
+        Debug.Log("Phase:"+CurrentGamePhase.Name+" ApplyThrow " + result.DieOne + " " + result.DieTwo );
         CurrentGamePhase.DoAction(result.DieOne+result.DieTwo, result);
     }
 
     public void ShooterWin(DiceResult result)
     {
+        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+        
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
+        
         //PayoutController.ShooterWon();
         UpdatePayout();
     }
 
     public void ShooterLose(DiceResult result)
     {
+        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+        
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
+        PayoutPlayers(result);
         UpdatePayout();
 
     }
 
     public void SetPoint(DiceResult result)
     {
+        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+
         TablePointState = result.DieOne + result.DieTwo;
         CurrentGamePhase = PointRollPhase;
+        PayoutPlayers(result);
         UpdatePayout();
     }
 
     public void NextStep(DiceResult result)
     {
+        Debug.Log("NextStep " + result.DieOne + result.DieTwo);
+
+        PayoutPlayers(result);
         UpdatePayout();
     }
 

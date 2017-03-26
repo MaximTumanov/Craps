@@ -31,7 +31,10 @@ public class PayOutController
     public HardwayCell[] Hardway;
     [HideInInspector]
     public HardwayExactCell[] HardwayExact;
-    
+
+    [HideInInspector]
+    public BigCell[] Big;
+
     public string CurrentState;
     public int TablePointer = -1;
 
@@ -40,11 +43,9 @@ public class PayOutController
     public void Init()
     {
         PayoutCells.Clear();
-        //PayoutCells.Add(Pass);
-        //PayoutCells.Add(DontPass);
-        //PayoutCells.Add(Come);
-        //PayoutCells.Add(DontCome);
         PayoutCells.Add(Field);
+        PayoutCells.Add(Seven);
+        PayoutCells.Add(AnyCraps);
         Point = new PointCell[Numbers.Point.Length];
         for (int i = 0; i < Numbers.Point.Length; i++)
         {
@@ -63,6 +64,13 @@ public class PayOutController
             HardwayExact[i] = new HardwayExactCell(Numbers.HardwayExact[i]);
             PayoutCells.Add(HardwayExact[i]);
         }
+        Big = new BigCell[Numbers.Big.Length];
+        for (int i = 0; i < Numbers.Big.Length; i++)
+        {
+            Big[i] = new BigCell(Numbers.Big[i]);
+            PayoutCells.Add(Big[i]);
+        }
+
     }  
     
     public void UpdateState(Table table)

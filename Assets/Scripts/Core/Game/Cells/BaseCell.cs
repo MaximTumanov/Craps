@@ -33,7 +33,7 @@ public class Cell
     public const string Pass = "Pass";
     public const string DontPass = "DontPass";
     public const string Come = "Come";
-    public const string DontCome = "DontPass";
+    public const string DontCome = "DontCome";
     public const string Field = "Field";
     public const string Point = "Point";
     public const string Hardway = "Hardway";
@@ -48,8 +48,8 @@ public class Numbers
     public static int[] Point = new int[6] {4,5,6,8,9,10};
     public static int[] Craps = new int[3] {2,3,12};
 	public static int[] FieldsX1 =  new int[] {3,4,9,10,11};
-		public static int[] FieldsSellMult_2 = new int[] { 2,12};
-
+    public static int[] FieldsSellMult_2 = new int[] {2,12};
+    public static int[] Big = new int[] {6,8};
 
     public static DiceResult[] Hardway = 
     {
