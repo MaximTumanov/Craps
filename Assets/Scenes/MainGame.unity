@@ -934,6 +934,100 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 915695507}
+--- !u!1 &950433701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 950433703}
+  - 114: {fileID: 950433702}
+  m_Layer: 0
+  m_Name: LogicTable
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &950433702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950433701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a97ecd37b7274384fa6bd8acfcbba346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Players: []
+  Shooter: {fileID: 0}
+  PayoutController:
+    Pass:
+      Name: Pass
+      DieValue: 0
+      Coefficient: 1
+      BettingState: 0
+      PayState: 0
+    DontPass:
+      Name: DontPass
+      DieValue: 0
+      Coefficient: 1
+      BettingState: 0
+      PayState: 0
+    Come:
+      Name: Come
+      DieValue: 0
+      Coefficient: 1
+      BettingState: 0
+      PayState: 0
+    DontCome:
+      Name: DontCome
+      DieValue: 0
+      Coefficient: 1
+      BettingState: 0
+      PayState: 0
+    Field:
+      Name: Field
+      DieValue: 0
+      Coefficient: 1
+      BettingState: 0
+      PayState: 0
+    Point: []
+    AnyCraps:
+      Name: AnyCraps
+      DieValue: 0
+      Coefficient: 7
+      BettingState: 0
+      PayState: 0
+    Hardway: []
+    CurrentState: 
+    TablePointer: -1
+    PayoutCells: []
+  CurrentGamePhase:
+    Name: 
+    GameActions: []
+  TablePointState: -1
+  ComeOutRollPhase:
+    Name: 
+    GameActions: []
+  PointRollPhase:
+    Name: 
+    GameActions: []
+--- !u!4 &950433703
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950433701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &1023804913
 GameObject:
   m_ObjectHideFlags: 0
