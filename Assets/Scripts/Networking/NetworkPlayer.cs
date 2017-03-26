@@ -14,9 +14,10 @@ public class NetworkPlayer : NetworkBehaviour
     [System.NonSerialized] public int PlayerId = 0;
     [SyncVar (hook="PositionChanged")] public int PositionInRoom = -1;
     [System.NonSerialized] public bool IsShooter = false;
+    public bool BetsReady = false;
 
     [SyncVar (hook="OnCharId")] public int CharId = -1;
-    [SyncVar] public long Coins = 1000;
+    public long Coins = 1000;
 
     public override void OnStartLocalPlayer()
     {
@@ -55,6 +56,7 @@ public class NetworkPlayer : NetworkBehaviour
         if (betValue > Coins)
             return;
 
+        Coins -= betValue;
         CmdPutBet(betId, betValue);
     }
 
@@ -94,8 +96,14 @@ public class NetworkPlayer : NetworkBehaviour
         Coins += coins;
     }
 
+    public void BetsAvailable(List<int> betsId)
+    {
+        BetsReady = false;
+        RpcBetsAvailable(betsId);
+    }
+
     [ClientRpc]
-    private void RpcBetsAvailable(List<int> betsId)
+    public void RpcBetsAvailable(List<int> betsId)
     {
         if (!isLocalPlayer || IsShooter)
             return;
@@ -104,7 +112,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcNotAvailable()
+    public void RpcNotAvailable()
     {
         if (!isLocalPlayer || IsShooter)
             return;
@@ -113,9 +121,14 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
+    public void CmdBetsReady()
+    {
+        BetsReady = true;
+    }
+
+    [Command]
     private void CmdPutBet(string betId, int betValue)
     {
-        Coins -= betValue;
         if (OnPutBet != null)
             OnPutBet(this, betId, betValue);
 

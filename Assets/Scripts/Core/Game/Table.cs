@@ -18,7 +18,7 @@ public class Table : MonoBehaviour
     public Action<int,Bet,int> PayOutCallback;  
 
     [ContextMenu ("Init")]
-    void Init()
+    public void Init()
     {
         PayoutController.Init();
         PayOutCallback = EmptyPayOutCallback;
@@ -116,7 +116,7 @@ public class Table : MonoBehaviour
     [ContextMenu ("AddPlayer")]
     public void AddPlayer()
     {
-        AddPlayer(Random.Range(int.MinValue,int.MaxValue));
+        AddPlayer(UnityEngine.Random.Range(int.MinValue,int.MaxValue));
     }
 
     public void AddPlayer(int id)

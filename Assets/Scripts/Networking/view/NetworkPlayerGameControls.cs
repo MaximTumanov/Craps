@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class NetworkPlayerGameControls : MonoBehaviour
 {
+//    [SerializeField] GameStateManager StateManager;
     [SerializeField] private GameObject MainControllers;
+    [SerializeField] private GameObject[] BetsButtons;
     [SerializeField] private GameObject ShooterControllers;
+    [SerializeField] private GameObject ShooterThrowControllers;
     [SerializeField] private Text MoneyField;
     [SerializeField] private Text BetField;
 //    [SerializeField] private GameObject[] BetControllers;
@@ -41,16 +44,26 @@ public class NetworkPlayerGameControls : MonoBehaviour
         BetField.text = Bets[CurrentBetId].ToString();
     }
 
+    public void BetsReady()
+    {
+        NetworkPlayer.CurrentPlayer.CmdBetsReady();
+    }
+
     private void Awake()
     {
         MainControllers.SetActive(false);
         if (NetworkingMainSingletone.Instance.HostMode)
         {
+//            StateManager.EventManager.AddListener(GameStateManager.States.Payouts, OnDeactivateShooter);
+//            StateManager.EventManager.AddListener(GameStateManager.States.Payouts, OnDeactivateShooter);
+//            StateManager.EventManager.AddListener(GameStateManager.States.ThrowDices, OnActivateShooter);
             ShooterControllers.SetActive(true);
+//            ShooterThrowControllers.SetActive(StateManager.CurrentState == GameStateManager.States.ThrowDices);
         }
         else
             ShooterControllers.SetActive(false);
-        
+
+
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<List<int>>(NetworkingEvents.ClientControlsEnabled, OnControlsEnabled);
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener(NetworkingEvents.PlacedToTable, OnTableEnabled);
         if (NetworkPlayer.CurrentPlayer != null && NetworkPlayer.CurrentPlayer.PositionInRoom != -1)
@@ -79,8 +92,25 @@ public class NetworkPlayerGameControls : MonoBehaviour
 
     private void OnControlsEnabled(List<int> bets)
     {
+        for (int i = 0; i < BetsButtons.Length; i++)
+        {
+            BetsButtons[i].SetActive(bets.Contains(i));
+        }
         UpdateMoney();
     }
+
+    #region shooter
+    private void OnDeactivateShooter()
+    {
+        ShooterThrowControllers.SetActive(false);
+    }
+
+    private void OnActivateShooter()
+    {
+        ShooterThrowControllers.SetActive(true);
+    }
+
+    #endregion
 
 }
 

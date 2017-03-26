@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using UnityEngine.Events;
 
 public class NetworkPlayerManager : MonoBehaviour
 {
@@ -105,7 +106,7 @@ public class NetworkPlayerManager : MonoBehaviour
     {
 //        Debug.Log("Chip fly, player id: " + player.PlayerId);
         Vector3 coinPosition = player.transform.position;// + new Vector3(0, 50 + index * 2f, 0);
-        coinPosition.y = 48 + index * 2f;
+        coinPosition.y = 48;
         ShowChipFly(coinPosition, CoinsPlace.position, 0, index);
         /*GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
         coin.transform.SetParent(player.transform);
@@ -121,8 +122,8 @@ public class NetworkPlayerManager : MonoBehaviour
     {
         GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
         coin.transform.SetParent(transform);
-        coin.transform.position = fromPos + Vector3.up * index * 2f;
-        coin.GetComponent<PlayerCoinController>().target = toPos + Vector3.up * index * 2f;
+        coin.transform.position = fromPos + Vector3.up * index * 0.3f;
+        coin.GetComponent<PlayerCoinController>().target = toPos + Vector3.up * index * 0.3f;
         coin.GetComponent<PlayerCoinController>().Coins = coins;
         coin.GetComponent<PlayerCoinController>().OnComplete = onComplete;
         NetworkServer.Spawn(coin);
@@ -131,6 +132,11 @@ public class NetworkPlayerManager : MonoBehaviour
     private void OnPutBet(NetworkPlayer player, string betId, int betValue)
     {
         Table.DoBet(player.PlayerId, new Bet(betId, betValue));
+    }
+
+    void PayoutCallback(int playerId, Bet bet, int coins)
+    {
+        OnPayout(playerId, coins);
     }
 
     private void OnPayout(int playerId, int value)
@@ -166,6 +172,11 @@ public class NetworkPlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!NetworkingMainSingletone.Instance.HostMode)
+            return;
+
+        Table.Init();
+        Table.PayOutCallback += PayoutCallback;
         PositionsBusy = new bool[PlayerPositions.Count];
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<short, NetworkConnection> (NetworkingEvents.ServerClientConnected, CreatePlayer);
         NetworkingMainSingletone.Instance.NetworkEventManager.AddListener<int, NetworkConnection> (NetworkingEvents.ServerClientDisconnectd, DeletePlayer);
