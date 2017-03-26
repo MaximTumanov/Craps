@@ -6,3 +6,5 @@ public class Shooter : MonoBehaviour
 {
         
 }
+
+public enum ShooterState { won, lost, nothing} 

@@ -11,7 +11,7 @@ public class AnyCrapsCell : BaseCell
         Name = Cell.AnyCraps;
     }
 
-    public override CellResult Check(DiceResult result)
+    public override CellResult Check(DiceResult result, ShooterState shooter)
     {
         int value = result.DieOne + result.DieTwo;
         for (int i = 0; i < Numbers.Craps.Length; i++)
