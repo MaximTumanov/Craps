@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class PayOutController
 {
 
-    //public int Pass = 20;
-    //public int DontPass = 20;
-    //public int[] PointPromise = new int[6] {4,5,6,8,9,10}; 
-    //public int[] Field = new int[5] {3,4,9,10,11};
-    //public int[]
     //[HideInInspector]
     public PassCell Pass = new PassCell();
     //[HideInInspector]
@@ -39,10 +35,16 @@ public class PayOutController
     public int TablePointer = -1;
 
     public List<BaseCell> PayoutCells = new List<BaseCell>();  
+    
+    public Action<int,Bet,int> PayOutCallback; 
      
     public void Init()
     {
         PayoutCells.Clear();
+        PayoutCells.Add(Pass);
+        PayoutCells.Add(DontPass);
+        PayoutCells.Add(Come);
+        PayoutCells.Add(DontCome);
         PayoutCells.Add(Field);
         PayoutCells.Add(Seven);
         PayoutCells.Add(AnyCraps);
@@ -117,22 +119,18 @@ public class PayOutController
     
     public int CheckBetPayout(Player player, Bet bet, DiceResult result, ShooterState shooter)
     {
-        if(CurrentState != Phases.ComeOut)
-        {
-            int number = result.DieOne + result.DieTwo; 
-            if(bet.Name == Cell.Come)
-            {
-                //Come.
-            }
-        }
         for (int i = 0; i < PayoutCells.Count; i++)
         {
             if(PayoutCells[i].Name == bet.Name)
             {
-                CellResult checkResult = PayoutCells[i].Check(result, shooter);
+                CellResult checkResult = PayoutCells[i].Check(result, shooter, CurrentState);
                 if(checkResult == CellResult.Won)
-				    return (int)PayoutCells[i].Payout(bet.Amount,result);
-                if(checkResult == CellResult.Lost)
+                {
+                    int amount = (int)PayoutCells[i].Payout(bet.Amount,result);
+                    PayOutCallback(player.Id,bet,amount);
+				    return amount;//(int)PayoutCells[i].Payout(bet.Amount,result);
+                }
+                if (checkResult == CellResult.Lost)
                 {
                     player.Remove(bet);
                     return 0;

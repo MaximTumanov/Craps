@@ -10,7 +10,7 @@ public class BaseCell
     public BettingCellState BettingState;
     public PayCellState PayState;
 
-    public virtual CellResult Check(DiceResult result, ShooterState shooter)
+    public virtual CellResult Check(DiceResult result, ShooterState shooter, string phases)
     {
         CellResult value = CellResult.Next;
         if(DieValue == result.DieOne + result.DieTwo)

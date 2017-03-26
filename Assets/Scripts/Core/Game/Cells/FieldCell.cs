@@ -9,12 +9,10 @@ public class FieldCell : BaseCell
     public FieldCell() : base()
     {
         Name = Cell.Field;
-
     }
 
-	public override CellResult Check (DiceResult result, ShooterState shooter)
+	public override CellResult Check (DiceResult result, ShooterState shooter, string phase)
 	{
-		
 		for (int i = 0; i < Numbers.FieldsX1.Length; i++)
 		{
 			if ((result.DieOne + result.DieTwo) == Numbers.FieldsX1 [i])

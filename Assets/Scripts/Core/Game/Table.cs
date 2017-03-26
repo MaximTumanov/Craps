@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,11 +15,13 @@ public class Table : MonoBehaviour
     public GamePhase ComeOutRollPhase;
     public GamePhase PointRollPhase;
 
+    public Action<int,Bet,int> PayOutCallback = EmptyPayOutCallback;  
+
     [ContextMenu ("Init")]
     void Init()
     {
         PayoutController.Init();
-
+        PayoutController.PayOutCallback = PayOutCallback;
         ComeOutRollPhase = new GamePhase();
         ComeOutRollPhase.Name = Phases.ComeOut;
         ComeOutRollPhase.GameActions = new List<GameAction>()
@@ -54,7 +57,7 @@ public class Table : MonoBehaviour
     [ContextMenu ("DoTestThrow")]
     public void DoTestThrow()
     {
-        DiceResult result = new DiceResult(Random.Range(1,7),Random.Range(1,7));
+        DiceResult result = new DiceResult(UnityEngine.Random.Range(1,7), UnityEngine.Random.Range(1,7));
         ApplyResult(result);
     }
 
@@ -168,4 +171,6 @@ public class Table : MonoBehaviour
             PayoutController.PayoutPlayer(Players[i], result, shooter);
         }
     }
+
+    public void EmptyPayOutCallback(int id, Bet bet,int amount) { }
 }

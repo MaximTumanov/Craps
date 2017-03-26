@@ -9,7 +9,7 @@ public class ComeCell:BaseCell
         Name = Cell.Come;
     }
 
-    public override CellResult Check(DiceResult result, ShooterState shooter)
+    public override CellResult Check(DiceResult result, ShooterState shooter, string phase)
     {
         int number = result.DieOne + result.DieTwo;
         if(number == Numbers.Elevent || number == Numbers.Seven)

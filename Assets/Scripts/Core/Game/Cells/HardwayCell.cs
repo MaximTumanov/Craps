@@ -22,7 +22,7 @@ public class HardwayCell : BaseCell
         }
     }
 
-    public override CellResult Check(DiceResult result, ShooterState shooter)
+    public override CellResult Check(DiceResult result, ShooterState shooter, string phase)
     {
         if(result.DieOne == DiceResult.DieOne && result.DieTwo == DiceResult.DieTwo)
         {

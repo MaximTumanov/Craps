@@ -10,7 +10,7 @@ public class SevenHardCell : BaseCell
 		Coefficient = 4;
 	}
 
-	public override CellResult Check (DiceResult result, ShooterState shooter)
+	public override CellResult Check (DiceResult result, ShooterState shooter, string phase)
 	{	
 		if ((result.DieOne + result.DieTwo) == 7)
 			return CellResult.Won;

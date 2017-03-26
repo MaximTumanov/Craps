@@ -8,4 +8,9 @@ public class PassCell : BaseCell
     {
         Name = Cell.Pass;
     }
+
+    public override CellResult Check(DiceResult result, ShooterState shooter, string phases)
+    {
+        return base.Check(result, shooter, phases);
+    }
 }
