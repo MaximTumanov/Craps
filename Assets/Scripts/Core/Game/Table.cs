@@ -66,7 +66,7 @@ public class Table : MonoBehaviour
 
     public void ShooterWin(DiceResult result)
     {
-        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+        Debug.Log("ShooterWin " + (result.DieOne + result.DieTwo));
         
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
@@ -77,7 +77,7 @@ public class Table : MonoBehaviour
 
     public void ShooterLose(DiceResult result)
     {
-        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+        Debug.Log("ShooterLose " + (result.DieOne + result.DieTwo));
         
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
@@ -88,7 +88,7 @@ public class Table : MonoBehaviour
 
     public void SetPoint(DiceResult result)
     {
-        Debug.Log("ShooterWin " + result.DieOne + result.DieTwo);
+        Debug.Log("SetPoint " + (result.DieOne + result.DieTwo));
 
         TablePointState = result.DieOne + result.DieTwo;
         CurrentGamePhase = PointRollPhase;
@@ -98,7 +98,7 @@ public class Table : MonoBehaviour
 
     public void NextStep(DiceResult result)
     {
-        Debug.Log("NextStep " + result.DieOne + result.DieTwo);
+        Debug.Log("NextStep " + (result.DieOne + result.DieTwo));
 
         PayoutPlayers(result);
         UpdatePayout();
