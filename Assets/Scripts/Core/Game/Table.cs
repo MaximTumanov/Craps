@@ -15,12 +15,13 @@ public class Table : MonoBehaviour
     public GamePhase ComeOutRollPhase;
     public GamePhase PointRollPhase;
 
-    public Action<int,Bet,int> PayOutCallback = EmptyPayOutCallback;  
+    public Action<int,Bet,int> PayOutCallback;  
 
     [ContextMenu ("Init")]
     void Init()
     {
         PayoutController.Init();
+        PayOutCallback = EmptyPayOutCallback;
         PayoutController.PayOutCallback = PayOutCallback;
         ComeOutRollPhase = new GamePhase();
         ComeOutRollPhase.Name = Phases.ComeOut;
