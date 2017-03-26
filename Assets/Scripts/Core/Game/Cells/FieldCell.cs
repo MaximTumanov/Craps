@@ -12,7 +12,7 @@ public class FieldCell : BaseCell
 
     }
 
-	public override CellResult Check (DiceResult result)
+	public override CellResult Check (DiceResult result, ShooterState shooter)
 	{
 		
 		for (int i = 0; i < Numbers.FieldsX1.Length; i++)

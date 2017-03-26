@@ -107,29 +107,29 @@ public class PayOutController
 
     }
 
-    public void PayoutPlayer(Player player, DiceResult result)
+    public void PayoutPlayer(Player player, DiceResult result, ShooterState shooter)
     {
         for (int i = player.Bets.Count - 1; i >= 0; i--)
         {
-            player.Balance += CheckBetPayout(player, player.Bets[i], result);
+            player.Balance += CheckBetPayout(player, player.Bets[i], result, shooter);
         }
     }
     
-    public int CheckBetPayout(Player player, Bet bet, DiceResult result)
+    public int CheckBetPayout(Player player, Bet bet, DiceResult result, ShooterState shooter)
     {
         if(CurrentState != Phases.ComeOut)
         {
             int number = result.DieOne + result.DieTwo; 
             if(bet.Name == Cell.Come)
             {
-
+                //Come.
             }
         }
         for (int i = 0; i < PayoutCells.Count; i++)
         {
             if(PayoutCells[i].Name == bet.Name)
             {
-                CellResult checkResult = PayoutCells[i].Check(result);
+                CellResult checkResult = PayoutCells[i].Check(result, shooter);
                 if(checkResult == CellResult.Won)
 				    return (int)PayoutCells[i].Payout(bet.Amount,result);
                 if(checkResult == CellResult.Lost)

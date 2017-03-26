@@ -71,7 +71,7 @@ public class Table : MonoBehaviour
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
         
-        //PayoutController.ShooterWon();
+        PayoutPlayers(result, ShooterState.won);
         UpdatePayout();
     }
 
@@ -81,7 +81,7 @@ public class Table : MonoBehaviour
         
         TablePointState = -1;
         CurrentGamePhase = ComeOutRollPhase;
-        PayoutPlayers(result);
+        PayoutPlayers(result, ShooterState.lost);
         UpdatePayout();
 
     }
@@ -92,7 +92,7 @@ public class Table : MonoBehaviour
 
         TablePointState = result.DieOne + result.DieTwo;
         CurrentGamePhase = PointRollPhase;
-        PayoutPlayers(result);
+        PayoutPlayers(result, ShooterState.nothing);
         UpdatePayout();
     }
 
@@ -100,7 +100,7 @@ public class Table : MonoBehaviour
     {
         Debug.Log("NextStep " + (result.DieOne + result.DieTwo));
 
-        PayoutPlayers(result);
+        PayoutPlayers(result, ShooterState.nothing);
         UpdatePayout();
     }
 
@@ -161,11 +161,11 @@ public class Table : MonoBehaviour
         }
     }
 
-    public void PayoutPlayers(DiceResult result)
+    public void PayoutPlayers(DiceResult result, ShooterState shooter)
     {
         for (int i = 0; i < Players.Count; i++)
         {
-            PayoutController.PayoutPlayer(Players[i], result);
+            PayoutController.PayoutPlayer(Players[i], result, shooter);
         }
     }
 }

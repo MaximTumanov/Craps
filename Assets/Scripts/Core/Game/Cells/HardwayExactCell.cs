@@ -19,7 +19,7 @@ public class HardwayExactCell : HardwayCell
         }
     }
 
-    public override CellResult Check(DiceResult result)
+    public override CellResult Check(DiceResult result, ShooterState shooter)
     {
         if((result.DieOne ==  DiceResult.DieOne && result.DieTwo == DiceResult.DieTwo)
             ||  (result.DieOne == DiceResult.DieTwo && result.DieTwo == DiceResult.DieOne))
