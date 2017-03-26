@@ -7,6 +7,7 @@ public class NetworkPlayerManager : MonoBehaviour
 {
     public Dictionary<int, NetworkPlayer> Players = new Dictionary<int, NetworkPlayer>();
     public List<NetworkCharacter> PlayerCharacterPrefab;
+    public Table Table;
 
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private List<Transform> PlayerPositions;
@@ -65,7 +66,10 @@ public class NetworkPlayerManager : MonoBehaviour
 
         NetworkPlayer player = Players[connectionId];
         if (player.PositionInRoom != -1)
+        {
             SetPositionState(player.PositionInRoom, false);
+            Table.RemovePlayer(player.PlayerId);
+        }
         
         
         Players.Remove(connectionId);
@@ -91,21 +95,56 @@ public class NetworkPlayerManager : MonoBehaviour
         player.name = "player_" + positionId;
         player.CharId = Random.Range(0, PlayerCharacterPrefab.Count);
         player.ShowChipFly += OnShowChipFly;
+        player.OnPutBet += OnPutBet;
+        Table.AddPlayer(player.PlayerId);
 
         return true;
     }
 
-    void OnShowChipFly(NetworkPlayer player, int index)
+    private void OnShowChipFly(NetworkPlayer player, int index)
     {
-        Debug.Log("Chip fly, player id: " + player.PlayerId);
-        GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
+//        Debug.Log("Chip fly, player id: " + player.PlayerId);
+        Vector3 coinPosition = player.transform.position;// + new Vector3(0, 50 + index * 2f, 0);
+        coinPosition.y = 48 + index * 2f;
+        ShowChipFly(coinPosition, CoinsPlace.position, 0, index);
+        /*GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
         coin.transform.SetParent(player.transform);
         Vector3 coinPosition = player.transform.position;// + new Vector3(0, 50 + index * 2f, 0);
         coinPosition.y = 48 + index * 2f;
         coin.transform.position = coinPosition;
 //        coin.GetComponent<PlayerCoinController>().Index = index;
         coin.GetComponent<PlayerCoinController>().target = CoinsPlace.position;
+        NetworkServer.Spawn(coin);*/
+    }
+
+    private void ShowChipFly(Vector3 fromPos, Vector3 toPos, int coins, int index, System.Action<int> onComplete = null)
+    {
+        GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
+        coin.transform.SetParent(transform);
+        coin.transform.position = fromPos + Vector3.up * index * 2f;
+        coin.GetComponent<PlayerCoinController>().target = toPos + Vector3.up * index * 2f;
+        coin.GetComponent<PlayerCoinController>().Coins = coins;
+        coin.GetComponent<PlayerCoinController>().OnComplete = onComplete;
         NetworkServer.Spawn(coin);
+    }
+
+    private void OnPutBet(NetworkPlayer player, string betId, int betValue)
+    {
+        Table.DoBet(player.PlayerId, new Bet(betId, betValue));
+    }
+
+    private void OnPayout(int playerId, int value)
+    {
+        if (!Players.ContainsKey(playerId))
+        {
+            Debug.LogError("OnPayout: Player " + playerId + " has gone");
+            return;
+        }
+        NetworkPlayer player = Players[playerId];
+        player.RpcPayout(value);
+        Vector3 coinPosition = player.transform.position;// + new Vector3(0, 50 + index * 2f, 0);
+        coinPosition.y = 48;
+        ShowChipFly(CoinsPlace.position, coinPosition, value , 0, (c) => player.RpcPayout(c));
     }
 
     private void SetPositionState(int index, bool busy)

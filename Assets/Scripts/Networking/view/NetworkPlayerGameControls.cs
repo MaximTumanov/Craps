@@ -8,7 +8,7 @@ public class NetworkPlayerGameControls : MonoBehaviour
     [SerializeField] private GameObject MainControllers;
     [SerializeField] private Text MoneyField;
     [SerializeField] private Text BetField;
-    [SerializeField] private GameObject[] BetControllers;
+//    [SerializeField] private GameObject[] BetControllers;
 
     private List<int> Bets = new List<int> {
         10, 25, 50, 100, 200, 500, 1000
@@ -16,7 +16,7 @@ public class NetworkPlayerGameControls : MonoBehaviour
 
     private int CurrentBetId = 3;
 
-    public void PutBet(int betId)
+    public void PutBet(string betId)
     {
         NetworkPlayer.CurrentPlayer.PutBet(betId, Bets[CurrentBetId]);
         UpdateMoney();

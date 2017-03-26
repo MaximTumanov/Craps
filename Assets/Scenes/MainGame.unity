@@ -212,7 +212,6 @@ MonoBehaviour:
   MainControllers: {fileID: 288336113}
   MoneyField: {fileID: 2103016585}
   BetField: {fileID: 306887023}
-  BetControllers: []
 --- !u!1 &306887022
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +515,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 418623604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 288336115}
+        m_MethodName: PutBet
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Come
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &418623604
@@ -1095,7 +1105,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Come
 --- !u!222 &1023804916
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1275,7 +1285,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1144874484}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 288336115}
+        m_MethodName: PutBet
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: DontCome
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1144874484
@@ -1401,6 +1422,7 @@ MonoBehaviour:
   - {fileID: 11425406, guid: 73167db2f670a41a6a2be84e56112fd2, type: 2}
   - {fileID: 11406758, guid: f6008b43a343f4dc5ad112f6a8c114f3, type: 2}
   - {fileID: 11496790, guid: ca92bacb1c702437882ed5f192b1d795, type: 2}
+  Table: {fileID: 950433702}
   PlayerPrefab: {fileID: 181644, guid: 70d826498ff894a46b1ed419f98ff09e, type: 2}
   PlayerPositions:
   - {fileID: 1985055187}
@@ -1661,7 +1683,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Don't Pass
 --- !u!222 &1214686725
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1735,7 +1757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Don't Come
 --- !u!222 &1358969024
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1899,15 +1921,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 288336115}
+        m_MethodName: PutBet
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: DontPass
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -2324,7 +2346,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Pass
 --- !u!222 &1795160200
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2581,13 +2603,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 288336115}
         m_MethodName: PutBet
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Pass
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,

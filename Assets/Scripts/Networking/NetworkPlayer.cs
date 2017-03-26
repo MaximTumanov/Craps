@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class NetworkPlayer : NetworkBehaviour
 {
     public System.Action<NetworkPlayer, int> ShowChipFly;
+    public System.Action<NetworkPlayer, string, int> OnPutBet;
     public static NetworkPlayer CurrentPlayer;
 
     [System.NonSerialized] public NetworkCharacter Character;
@@ -49,7 +50,7 @@ public class NetworkPlayer : NetworkBehaviour
         transform.localRotation = localRotation;
     }
 
-    public void PutBet(int betId, int betValue)
+    public void PutBet(string betId, int betValue)
     {
         if (betValue > Coins)
             return;
@@ -86,7 +87,7 @@ public class NetworkPlayer : NetworkBehaviour
 
 
     [ClientRpc]
-    private void RpcPayout(int coins)
+    public void RpcPayout(int coins)
     {
         if (!isLocalPlayer || IsShooter)
             return;
@@ -112,10 +113,11 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     [Command]
-    private void CmdPutBet(int betId, int betValue)
+    private void CmdPutBet(string betId, int betValue)
     {
         Coins -= betValue;
-        //Call pay table
+        if (OnPutBet != null)
+            OnPutBet(this, betId, betValue);
 
         if (ShowChipFly != null)
         {
