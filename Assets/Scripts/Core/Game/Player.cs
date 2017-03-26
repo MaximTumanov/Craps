@@ -5,17 +5,20 @@ using UnityEngine;
 [System.Serializable]
 public class Player
 {
+    public int Id;
     public int Balance;
-    public int PlayerPointer = -1;
     public List<Bet> Bets;
-
-    public int Id = 0;
-    public int CurrentBet = 100;
+    
+    public Player(int id)
+    {
+        Id = id;
+        Bets = new List<Bet>();
+    }
 
     [ContextMenu ("DoBet")]
-    public void DoBet(string name)
+    public void DoBet(Bet bet)
     {
-        Bets.Add(new Bet(name,CurrentBet));
+        Bets.Add(bet);
     }
 
     public void Remove(Bet bet)
