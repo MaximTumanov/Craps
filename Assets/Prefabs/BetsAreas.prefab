@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4208924252538056}
   - component: {fileID: 65189195951506406}
   - component: {fileID: 114981189375299658}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4966880169723056}
   - component: {fileID: 65464583729917256}
   - component: {fileID: 114876116680816212}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4013692464174272}
   - component: {fileID: 65491430187954126}
   - component: {fileID: 114129167928658734}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Big6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4547052513804866}
   - component: {fileID: 65190944325221560}
   - component: {fileID: 114999982743395460}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4436393335704552}
   - component: {fileID: 65046239180456966}
   - component: {fileID: 114536705536354876}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway56
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4988663575203108}
   - component: {fileID: 65718704283996044}
   - component: {fileID: 114451507360972460}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4462170840608764}
   - component: {fileID: 65991973637869158}
   - component: {fileID: 114403420607833696}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4175366089121432}
   - component: {fileID: 65831640502540554}
   - component: {fileID: 114151727726242246}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Seven
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 65068431262387026}
   - component: {fileID: 114756386383533730}
   - component: {fileID: 65004077479992722}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Dont Pass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4927783281022596}
   - component: {fileID: 65232913340809290}
   - component: {fileID: 114112372547892622}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway66
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4619546524186400}
   - component: {fileID: 65639150075023164}
   - component: {fileID: 114736402459402020}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: AnyCraps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 4851681704933760}
   - component: {fileID: 65621053762651566}
   - component: {fileID: 114408402892260896}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 65800022723255732}
   - component: {fileID: 114275778491294488}
   - component: {fileID: 65303496458226904}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Pass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4317468524168380}
   - component: {fileID: 65591114665418024}
   - component: {fileID: 114515487496224740}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway22
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 4590846882291904}
   - component: {fileID: 65534146722777716}
   - component: {fileID: 114919001611177628}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway33
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +278,7 @@ GameObject:
   - component: {fileID: 4617646808574070}
   - component: {fileID: 65991811449053070}
   - component: {fileID: 114322705790992776}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway55
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 4018376385797982}
   - component: {fileID: 65179867111602826}
   - component: {fileID: 114864876984649620}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: DontCome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 4069769399211396}
   - component: {fileID: 65166051410280254}
   - component: {fileID: 114014060944155258}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 4734125791727958}
   - component: {fileID: 65585175381945666}
   - component: {fileID: 114964156823553418}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Big8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 4721386859630878}
   - component: {fileID: 65696417095372160}
   - component: {fileID: 114826249917134440}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 4249278915022444}
   - component: {fileID: 65605005871312502}
   - component: {fileID: 114556570228401456}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Come
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 4634685903598976}
   - component: {fileID: 65580924792206322}
   - component: {fileID: 114591880850078822}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Point10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4541634012340548}
   - component: {fileID: 114262247645723172}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: BetsAreas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 4890575989358006}
   - component: {fileID: 65909824849776646}
   - component: {fileID: 114705274903136230}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Hardway44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4021494788148598}
-  m_Layer: 14
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RaycastMask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 256
 --- !u!114 &114275778491294488
 MonoBehaviour:
   m_ObjectHideFlags: 1
