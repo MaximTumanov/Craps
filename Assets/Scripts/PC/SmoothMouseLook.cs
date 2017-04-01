@@ -31,7 +31,7 @@ public class SmoothMouseLook : MonoBehaviour {
  
 	void Update ()
 	{
-        if (VRSettings.enabled)
+        if (VRSettings.enabled || !Input.GetMouseButton(1))
             return;
 
 		if (axes == RotationAxes.MouseXAndY)

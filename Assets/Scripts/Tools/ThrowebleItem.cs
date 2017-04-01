@@ -12,7 +12,10 @@ public class ThrowebleItem : QuadraticBezierCurveMover
 		controllPoint.x = (start.x + end.x) / 2;
 		controllPoint.z = (start.z + end.z) / 2;
 		controllPoint.y = (start.y + end.y) / 2 + Random.Range (Settings.MinAddY,Settings.MaxAddY);
-	}
+
+        float time = Random.Range(Settings.MinFlyTime, Settings.MaxFlyTime);
+        Move(time, start, controllPoint, end);
+    }
 
 	[System.Serializable]
 	private class ItemSettings 

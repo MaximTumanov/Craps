@@ -21,8 +21,8 @@ public class TableActionController : MonoBehaviour
             BetAreaOnTable hitArea = hit.collider.GetComponent<BetAreaOnTable>();
             if(hitArea)
             {
-                //Add logic here
-                Debug.Log(hitArea.BetName);
+                var s = FindObjectOfType<NetworkPlayerManager>();
+                s.ShowChipFly(new Vector3(5, 70, 26), hit.point, 1, 1);
             }
         }
     }
