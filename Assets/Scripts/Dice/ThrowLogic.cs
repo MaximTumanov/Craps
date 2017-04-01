@@ -11,12 +11,33 @@ public class ThrowLogic : MonoBehaviour
     private GameObject Parent;
     public static System.Action OntheEnd;
     public bool me;
-
+    System.Action<int> ResultCallback;
+    private Vector3[] ComperToThis;
+    //side according to index 
+    private int[] Sides = new int[] { 6, 5, 4, 3, 2, 1 };
     void Start()
     {
         //  Throw(Disepower);
 
+
         Parent = transform.parent.gameObject;
+    }
+
+    void OnEnable()
+    {
+        // initialize compearable array 
+        //should be done only once 
+        ComperToThis = new Vector3[]
+        {
+        transform.up,
+        -transform.up,
+        -transform.right,
+        transform.right,
+        transform.forward,
+        -transform.forward
+        };
+        // return correct side of the dice 
+        GetDirection(transform, Sides);
     }
 
 
@@ -28,7 +49,32 @@ public class ThrowLogic : MonoBehaviour
         Dise.AddForce(Vector3.forward * powerOfThrow);
         Dise.angularVelocity = new Vector3(Random.Range(0, 100f), Random.Range(0, 100f), Random.Range(0, 100f));
         StartCoroutine(DestroythisObje());
+        //ResultCallback = resultCallbacl;
     }
+
+    private int GetDirection(Transform dice, int[] sides)
+    {
+        float tempValue = 0;
+
+        int sideIndex = 0;
+
+        for (int i = 0; i < ComperToThis.Length; i++)
+        {
+
+            if (tempValue > Vector3.Dot(ComperToThis[i], Vector3.up))
+            {
+                tempValue = Vector3.Dot(ComperToThis[i], Vector3.up);
+
+                sideIndex = i;
+
+                Debug.Log(sides[sideIndex] + "  " + sideIndex);
+            }
+        }
+
+        return sides[sideIndex];
+    }
+      
+
 
     IEnumerator DestroythisObje()
     {
@@ -37,12 +83,11 @@ public class ThrowLogic : MonoBehaviour
             if (Dise.IsSleeping())
             {
                 Destroy(gameObject, .2f);
-
+                //GetDirection(transform);
                 if (Parent != null && me)
                 {
                     OntheEnd();
                     Destroy(Parent);
-
                 }
 
                 Debug.Log(transform.eulerAngles.normalized);
