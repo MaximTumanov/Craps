@@ -83,7 +83,7 @@ public class ThrowLogic : MonoBehaviour
             if (Dise.IsSleeping())
             {
                 Destroy(gameObject, .2f);
-                //GetDirection(transform);
+                GetDirection(transform, Sides);
                 if (Parent != null && me)
                 {
                     OntheEnd();
