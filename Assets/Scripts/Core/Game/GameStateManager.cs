@@ -89,7 +89,7 @@ public class GameStateManager : MonoBehaviour
             }
             if (_currentState == States.PutBets)
             {
-                item.Value.RpcBetsAvailable(new List<int>{0, 1, 2, 3}); //here will be bet check
+                item.Value.RpcBetsAvailable(new int[4]{0, 1, 2, 3}); //here will be bet check
             }
         }
 

@@ -103,7 +103,11 @@ public class Table : MonoBehaviour
     public void NextStep(DiceResult result)
     {
         Debug.Log("NextStep " + (result.DieOne + result.DieTwo));
-
+        if((result.DieOne + result.DieTwo) == TablePointState)
+        {
+            ShooterWin(result);
+            return;
+        }
         PayoutPlayers(result, ShooterState.nothing);
         UpdatePayout();
     }

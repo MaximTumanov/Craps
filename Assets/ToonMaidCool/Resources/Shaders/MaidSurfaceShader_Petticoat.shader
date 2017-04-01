@@ -1,4 +1,6 @@
-﻿Shader "Custom/MaidSurfaceShader_Petticoat" {
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+Shader "Custom/MaidSurfaceShader_Petticoat" {
 	Properties
 	{
 		_Color("Color(RGBA)", Color) = (1,1,1,1)
@@ -128,7 +130,7 @@
 			float r_proj_y = UNITY_MATRIX_P[1][1] * r_proj_near * 0.5f;
 			
 			o.viewDir = (half3)WorldSpaceViewDir(v.vertex);
-			o.posWorld = mul(_Object2World, v.vertex);
+			o.posWorld = mul(unity_ObjectToWorld, v.vertex);
 			float viewLength = length(_WorldSpaceCameraPos.xyz - o.posWorld.xyz);
 			
 			float edge_size = abs( (_EdgeSize * 1/viewLength) / r_proj_y * world_pos.z * r_proj_near);

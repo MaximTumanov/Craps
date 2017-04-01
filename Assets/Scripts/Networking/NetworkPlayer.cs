@@ -99,16 +99,21 @@ public class NetworkPlayer : NetworkBehaviour
     public void BetsAvailable(List<int> betsId)
     {
         BetsReady = false;
-        RpcBetsAvailable(betsId);
+        RpcBetsAvailable(betsId.ToArray());
     }
 
     [ClientRpc]
-    public void RpcBetsAvailable(List<int> betsId)
+    public void RpcBetsAvailable(int[] betsId)
     {
         if (!isLocalPlayer || IsShooter)
             return;
 
-        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<List<int>>(NetworkingEvents.ClientControlsEnabled, betsId);
+        List<int> bets = new List<int>(); 
+        for (int i = 0; i < betsId.Length; i++)
+        {
+            bets.Add(betsId[i]);
+        }
+        NetworkingMainSingletone.Instance.NetworkEventManager.Broadcast<List<int>>(NetworkingEvents.ClientControlsEnabled, bets);
     }
 
     [ClientRpc]
