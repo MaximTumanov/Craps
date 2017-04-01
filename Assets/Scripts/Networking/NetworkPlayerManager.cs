@@ -118,14 +118,16 @@ public class NetworkPlayerManager : MonoBehaviour
         NetworkServer.Spawn(coin);*/
     }
 
-    private void ShowChipFly(Vector3 fromPos, Vector3 toPos, int coins, int index, System.Action<int> onComplete = null)
+    public void ShowChipFly(Vector3 fromPos, Vector3 toPos, int coins, int index, System.Action<int> onComplete = null)
     {
         GameObject coin = Instantiate<GameObject>(PlayerCoin.gameObject);   
         coin.transform.SetParent(transform);
-        coin.transform.position = fromPos + Vector3.up * index * 0.3f;
-        coin.GetComponent<PlayerCoinController>().target = toPos + Vector3.up * index * 0.3f;
-        coin.GetComponent<PlayerCoinController>().Coins = coins;
-        coin.GetComponent<PlayerCoinController>().OnComplete = onComplete;
+        //coin.transform.position = fromPos + Vector3.up * index * 0.3f;
+        //coin.GetComponent<PlayerCoinController>().target = toPos + Vector3.up * index * 0.3f;
+        //coin.GetComponent<PlayerCoinController>().Coins = coins;
+        //coin.GetComponent<PlayerCoinController>().OnComplete = onComplete;
+        var script = coin.GetComponent<ThrowebleItem>();
+        script.Throw(fromPos, toPos);
         NetworkServer.Spawn(coin);
     }
 
