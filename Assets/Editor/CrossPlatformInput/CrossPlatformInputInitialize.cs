@@ -1,7 +1,28 @@
-using System.Collections.Generic;
-using UnityEditor;
+/************************************************************************************
 
-namespace UnityStandardAssets.CrossPlatformInput.Inspector
+Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
+
+Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
+you may not use the Oculus VR Rift SDK except in compliance with the License,
+which is provided at the time of installation or download, or which
+otherwise accompanies this software in either electronic or hard copy form.
+
+You may obtain a copy of the License at
+
+http://www.oculusvr.com/licenses/LICENSE-3.2
+
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+************************************************************************************/
+
+using UnityEditor;
+using System.Collections.Generic;
+
+namespace UnitySampleAssets.CrossPlatformInput.Inspector
 {
     [InitializeOnLoad]
     public class CrossPlatformInitialize
@@ -22,6 +43,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
             }
         }
 
+
         [MenuItem("Mobile Input/Enable")]
         private static void Enable()
         {
@@ -32,9 +54,6 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 case BuildTarget.iOS:
                 case BuildTarget.WP8Player:
                 case BuildTarget.BlackBerry:
-                case BuildTarget.PSM:
-                case BuildTarget.Tizen:
-                case BuildTarget.WSAPlayer:
                     EditorUtility.DisplayDialog("Mobile Input",
                                                 "You have enabled Mobile Input. You'll need to use the Unity Remote app on a connected device to control your game in the Editor.",
                                                 "OK");
@@ -48,12 +67,14 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
             }
         }
 
+
         [MenuItem("Mobile Input/Enable", true)]
         private static bool EnableValidate()
         {
             var defines = GetDefinesList(mobileBuildTargetGroups[0]);
             return !defines.Contains("MOBILE_INPUT");
         }
+
 
         [MenuItem("Mobile Input/Disable")]
         private static void Disable()
@@ -72,12 +93,14 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
             }
         }
 
+
         [MenuItem("Mobile Input/Disable", true)]
         private static bool DisableValidate()
         {
             var defines = GetDefinesList(mobileBuildTargetGroups[0]);
             return defines.Contains("MOBILE_INPUT");
         }
+
 
         private static BuildTargetGroup[] buildTargetGroups = new BuildTargetGroup[]
             {
@@ -86,7 +109,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 BuildTargetGroup.Android,
                 BuildTargetGroup.iOS,
                 BuildTargetGroup.WP8,
-                BuildTargetGroup.BlackBerry
+                BuildTargetGroup.BlackBerry,
             };
 
         private static BuildTargetGroup[] mobileBuildTargetGroups = new BuildTargetGroup[]
@@ -95,13 +118,12 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 BuildTargetGroup.iOS,
                 BuildTargetGroup.WP8,
                 BuildTargetGroup.BlackBerry,
-				BuildTargetGroup.PSM,
-				BuildTargetGroup.Tizen,
-				BuildTargetGroup.WSA
             };
+
 
         private static void SetEnabled(string defineName, bool enable, bool mobile)
         {
+            //Debug.Log("setting "+defineName+" to "+enable);
             foreach (var group in mobile ? mobileBuildTargetGroups : buildTargetGroups)
             {
                 var defines = GetDefinesList(group);
@@ -128,6 +150,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(group, definesString);
             }
         }
+
 
         private static List<string> GetDefinesList(BuildTargetGroup group)
         {
