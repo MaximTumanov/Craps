@@ -14,7 +14,7 @@ public class ThrowLogic : MonoBehaviour
     System.Action<int> ResultCallback;
     private Vector3[] ComperToThis;
     //side according to index 
-    private int[] Sides = new int[] { 6, 5, 4, 3, 2, 1 };
+    private int[] Sides = new int[] { 2, 5, 4, 3, 6, 1 };
     void Start()
     {
         //  Throw(Disepower);
@@ -37,7 +37,7 @@ public class ThrowLogic : MonoBehaviour
         -transform.forward
         };
         // return correct side of the dice 
-        GetDirection(transform, Sides);
+        Debug.Log(GetDirection(transform, Sides) + " Side of this dice");
     }
 
 
@@ -83,7 +83,7 @@ public class ThrowLogic : MonoBehaviour
             if (Dise.IsSleeping())
             {
                 Destroy(gameObject, .2f);
-                GetDirection(transform, Sides);
+               Debug.Log( GetDirection(transform, Sides) + " Side of this dice");
                 if (Parent != null && me)
                 {
                     OntheEnd();
